@@ -9,9 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.delticom.demo.model.User;
 import com.delticom.demo.repository.UserRepository;
+import com.delticom.demo.service.UserService;
 
 @Controller
 public class SignupController {
+	
+	@Autowired
+	private UserService uservice;
 	
 	@Autowired
 	private UserRepository urepo;
@@ -24,9 +28,14 @@ public class SignupController {
 	@PostMapping("/signup")
 	public String saveUser(@ModelAttribute User user,Model model) {
 		
-		urepo.save(user);
-		model.addAttribute("error","user saved successfully, Please login");
-		return "login";
+		
+		if(uservice.isUserExists(user.getUserName()) == null) {
+			urepo.save(user);
+			model.addAttribute("error","user saved successfully, Please login");
+			return "login";
+		}
+		model.addAttribute("error","user already taken, please choose another");
+		return "signup";
 	}
 
 }

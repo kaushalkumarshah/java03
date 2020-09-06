@@ -1,5 +1,6 @@
 package com.delticom.demo.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,9 +8,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.delticom.demo.model.User;
+import com.delticom.demo.repository.UserRepository;
 
 @Controller
 public class LoginController {
+	
+	@Autowired
+	private UserRepository urepo;
+	
 	
 	@GetMapping("/login")
 	public String loginForm() {
@@ -20,7 +26,9 @@ public class LoginController {
 	@PostMapping("/login")
 	public  String checkUser(@ModelAttribute User user,Model model) {
 		
-		if(user.getUserName().equals("hari") && user.getPassword().equals("123")) {
+		
+		if(urepo.isExist(user.getUserName(), user.getPassword()) != null ) {
+		//if(urepo.findByUserNameAndPassword(user.getUserName(), user.getPassword()) != null) {
 			
 			
 			model.addAttribute("user",user.getUserName());
