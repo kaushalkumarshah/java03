@@ -1,5 +1,7 @@
 package com.delticom.demo.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,13 +26,13 @@ public class LoginController {
 	}
 	
 	@PostMapping("/login")
-	public  String checkUser(@ModelAttribute User user,Model model) {
+	public  String checkUser(@ModelAttribute User user,Model model, HttpSession session) {
 		
 		
 		if(urepo.isExist(user.getUserName(), user.getPassword()) != null ) {
 		//if(urepo.findByUserNameAndPassword(user.getUserName(), user.getPassword()) != null) {
 			
-			
+			session.setAttribute("userlogin", user.getUserName());
 			model.addAttribute("user",user.getUserName());
 			//model.addAttribute("welcome","Welcome");
 			return "home";
