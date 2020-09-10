@@ -1,5 +1,6 @@
 package com.delticom.demo.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.CascadeType;
@@ -10,7 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Employee {
+public class Employee implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4978410677176304495L;
 	@Id
 	@GeneratedValue
 	private int id;

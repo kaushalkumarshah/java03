@@ -1,11 +1,17 @@
 package com.delticom.demo.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Address {
+public class Address implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8627327765869490355L;
 	@Id
 	@GeneratedValue
 	private int id;
